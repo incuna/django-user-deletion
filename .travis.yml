@@ -1,0 +1,11 @@
+language: python
+python:
+  - 3.4
+  - 3.5
+notifications:
+  email: false
+env:
+  matrix:
+    - DJANGO='django>=1.8,<1.9'
+install:
+  - pip install -r requirements.txt
