@@ -1,0 +1,13 @@
+language: python
+python:
+  - 3.4
+  - 3.5
+notifications:
+  email: false
+env:
+  matrix:
+    - DJANGO='django~=1.8.12'
+    - DJANGO='django~=1.9.5'
+install:
+  - pip install -r requirements.txt
+script: make test

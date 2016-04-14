@@ -1,0 +1,7 @@
+-e .
+colour-runner==0.0.4
+coverage==4.0.3
+dj-database-url==0.4.1
+django==1.8.12
+flake8==2.5.4
+flake8-import-order==0.7
