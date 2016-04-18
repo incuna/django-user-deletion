@@ -3,5 +3,8 @@ colour-runner==0.0.4
 coverage==4.0.3
 dj-database-url==0.4.1
 django==1.8.12
+factory-boy==2.6.1
 flake8==2.5.4
 flake8-import-order==0.7
+incuna-pigeon==0.1.0
+python-dateutil==2.5.2
