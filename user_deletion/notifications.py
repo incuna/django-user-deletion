@@ -21,5 +21,11 @@ def send_emails(notification):
 
 class DeletionNotification(Notification):
     handlers = (send_emails,)
-    template_name = 'user_deletion/email.txt'
+    template_name = 'user_deletion/email_notification.txt'
     subject = _('Re-activate your account')
+
+
+class DeletedNotification(Notification):
+    handlers = (send_emails,)
+    template_name = 'user_deletion/email_deletion.txt'
+    subject = _('Your account has been deleted')
