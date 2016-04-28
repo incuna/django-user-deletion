@@ -13,22 +13,22 @@ from .models import User
 MONTH = 1
 
 
+@patch('user_deletion.apps.UserDeletionConfig.MONTH_NOTIFICATION', new=MONTH)
 class TestUserNotifyManagementCommand(TestCase):
     def test_no_users(self):
         call_command('notify_users')
         self.assertFalse(len(mail.outbox))
 
     def test_inactive_users(self):
-        month_ago = timezone.now() - relativedelta(months=13)
+        month_ago = timezone.now() - relativedelta(months=MONTH)
         UserFactory.create(last_login=month_ago)
 
         call_command('notify_users')
 
         self.assertEqual(len(mail.outbox), 1)
 
-    @patch('user_deletion.apps.UserDeletionConfig.MONTH_NOTIFICATION', new=MONTH)
     def test_inactive_users_config(self):
-        month_ago = timezone.now() - relativedelta(months=MONTH + 1)
+        month_ago = timezone.now() - relativedelta(months=MONTH)
         UserFactory.create(last_login=month_ago)
 
         call_command('notify_users')
@@ -36,7 +36,7 @@ class TestUserNotifyManagementCommand(TestCase):
         self.assertEqual(len(mail.outbox), 1)
 
     def test_email(self):
-        year_ago = timezone.now() - relativedelta(months=12)
+        year_ago = timezone.now() - relativedelta(months=MONTH)
         UserFactory.create(last_login=year_ago)
         call_command('notify_users')
 
@@ -45,20 +45,21 @@ class TestUserNotifyManagementCommand(TestCase):
         self.assertIn('We have noticed', email.body)
 
     def test_notified_users(self):
-        year_ago = timezone.now() - relativedelta(months=13)
+        year_ago = timezone.now() - relativedelta(months=MONTH)
         UserFactory.create(last_login=year_ago, notified=True)
 
         call_command('notify_users')
         self.assertFalse(len(mail.outbox))
 
 
+@patch('user_deletion.apps.UserDeletionConfig.MONTH_DELETION', new=MONTH)
 class TestDeleteUsersManagementCommand(TestCase):
     def test_no_users(self):
         call_command('delete_users')
         self.assertFalse(len(mail.outbox))
 
     def test_inactive_users(self):
-        year_ago = timezone.now() - relativedelta(months=13)
+        year_ago = timezone.now() - relativedelta(months=MONTH)
         user = UserFactory.create(last_login=year_ago, notified=True)
 
         call_command('delete_users')
@@ -68,9 +69,8 @@ class TestDeleteUsersManagementCommand(TestCase):
         with self.assertRaises(User.DoesNotExist):
             user.refresh_from_db()
 
-    @patch('user_deletion.apps.UserDeletionConfig.MONTH_DELETION', new=MONTH)
     def test_inactive_users_config(self):
-        month_ago = timezone.now() - relativedelta(months=MONTH + 1)
+        month_ago = timezone.now() - relativedelta(months=MONTH)
         UserFactory.create(last_login=month_ago, notified=True)
 
         call_command('delete_users')
@@ -78,7 +78,7 @@ class TestDeleteUsersManagementCommand(TestCase):
         self.assertEqual(len(mail.outbox), 1)
 
     def test_email(self):
-        year_ago = timezone.now() - relativedelta(months=13)
+        year_ago = timezone.now() - relativedelta(months=MONTH)
         UserFactory.create(last_login=year_ago, notified=True)
         call_command('delete_users')
 
