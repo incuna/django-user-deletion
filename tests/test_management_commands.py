@@ -36,15 +36,6 @@ class TestUserNotifyManagementCommand(TestCase):
 
         self.assertEqual(len(mail.outbox), 1)
 
-    def test_email(self):
-        year_ago = timezone.now() - relativedelta(months=MONTH)
-        UserFactory.create(last_login=year_ago)
-        call_command('notify_users')
-
-        email = mail.outbox[0]
-        self.assertEqual(email.subject, 'Re-activate your account')
-        self.assertIn('We have noticed', email.body)
-
     def test_notified_users(self):
         year_ago = timezone.now() - relativedelta(months=MONTH)
         UserFactory.create(last_login=year_ago, notified=True)
@@ -77,13 +68,3 @@ class TestDeleteUsersManagementCommand(TestCase):
         call_command('delete_users')
 
         self.assertEqual(len(mail.outbox), 1)
-
-    def test_email(self):
-        year_ago = timezone.now() - relativedelta(months=MONTH)
-        UserFactory.create(last_login=year_ago, notified=True)
-
-        call_command('delete_users')
-
-        email = mail.outbox[0]
-        self.assertEqual(email.subject, 'Your account has been deleted')
-        self.assertIn('You were informed', email.body)
