@@ -18,7 +18,7 @@ class TestUserNotifyManagementCommand(TestCase):
     def test_no_users(self):
         call_command('notify_users')
 
-        self.assertFalse(len(mail.outbox))
+        self.assertEqual(len(mail.outbox), 0)
 
     def test_inactive_users(self):
         month_ago = timezone.now() - relativedelta(months=MONTH)
@@ -58,7 +58,7 @@ class TestUserNotifyManagementCommand(TestCase):
 class TestDeleteUsersManagementCommand(TestCase):
     def test_no_users(self):
         call_command('delete_users')
-        self.assertFalse(len(mail.outbox))
+        self.assertEqual(len(mail.outbox), 0)
 
     def test_inactive_users(self):
         year_ago = timezone.now() - relativedelta(months=MONTH)
