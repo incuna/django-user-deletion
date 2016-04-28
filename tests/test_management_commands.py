@@ -28,14 +28,6 @@ class TestUserNotifyManagementCommand(TestCase):
 
         self.assertEqual(len(mail.outbox), 1)
 
-    def test_inactive_users_config(self):
-        month_ago = timezone.now() - relativedelta(months=MONTH)
-        UserFactory.create(last_login=month_ago)
-
-        call_command('notify_users')
-
-        self.assertEqual(len(mail.outbox), 1)
-
     def test_notified_users(self):
         year_ago = timezone.now() - relativedelta(months=MONTH)
         UserFactory.create(last_login=year_ago, notified=True)
@@ -60,11 +52,3 @@ class TestDeleteUsersManagementCommand(TestCase):
         self.assertEqual(len(mail.outbox), 1)
         with self.assertRaises(User.DoesNotExist):
             user.refresh_from_db()
-
-    def test_inactive_users_config(self):
-        month_ago = timezone.now() - relativedelta(months=MONTH)
-        UserFactory.create(last_login=month_ago, notified=True)
-
-        call_command('delete_users')
-
-        self.assertEqual(len(mail.outbox), 1)
