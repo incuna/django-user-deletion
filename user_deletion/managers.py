@@ -9,14 +9,14 @@ user_deletion_config = apps.get_app_config('user_deletion')
 class UserDeletionManagerMixin:
     def users_to_notify(self):
         """Finds all users who have been inactive and not yet notified."""
-        inactive_boundary = timezone.now() - relativedelta(
+        threshold = timezone.now() - relativedelta(
             months=user_deletion_config.MONTH_NOTIFICATION,
         )
-        return self.filter(last_login__lte=inactive_boundary, notified=False)
+        return self.filter(last_login__lte=threshold, notified=False)
 
     def users_to_delete(self):
         """Finds all users who have been inactive and were notified."""
-        one_year = timezone.now() - relativedelta(
+        threshold = timezone.now() - relativedelta(
             months=user_deletion_config.MONTH_DELETION,
         )
-        return self.filter(last_login__lte=one_year, notified=True)
+        return self.filter(last_login__lte=threshold, notified=True)
