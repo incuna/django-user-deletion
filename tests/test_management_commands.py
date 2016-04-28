@@ -7,6 +7,7 @@ from django.test import TestCase
 from django.utils import timezone
 
 from .factories import UserFactory
+from .models import User
 
 
 MONTH = 1
@@ -58,11 +59,14 @@ class TestDeleteUsersManagementCommand(TestCase):
 
     def test_inactive_users(self):
         year_ago = timezone.now() - relativedelta(months=13)
-        UserFactory.create(last_login=year_ago, notified=True)
+        user = UserFactory.create(last_login=year_ago, notified=True)
 
         call_command('delete_users')
 
         self.assertEqual(len(mail.outbox), 1)
+
+        with self.assertRaises(User.DoesNotExist):
+            user.refresh_from_db()
 
     @patch('user_deletion.apps.UserDeletionConfig.MONTH_DELETION', new=MONTH)
     def test_inactive_users_config(self):

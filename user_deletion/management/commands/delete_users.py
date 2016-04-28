@@ -15,3 +15,4 @@ class Command(BaseCommand):
         users = User.objects.users_to_delete()
         site = Site.objects.get_current()
         DeletedNotification(user=None, site=site, users=users).notify()
+        users.delete()
