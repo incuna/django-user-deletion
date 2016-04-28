@@ -15,25 +15,25 @@ class TestUserDeletionManager(TestCase):
         last_login = timezone.now() - relativedelta(
             months=user_deletion_config.MONTH_NOTIFICATION,
         )
-        user = UserFactory.create(last_login=last_login)
+        user = UserFactory.create(last_login=last_login, notified=False)
         users = User.objects.users_to_notify()
 
         self.assertCountEqual(users, [user])
 
     def test_users_not_to_notify(self):
-        UserFactory.create(last_login=timezone.now())
+        user = UserFactory.create(last_login=timezone.now(), notified=False)
         users = User.objects.users_to_notify()
 
-        self.assertFalse(users)
+        self.assertNotIn(user, users)
 
     def test_users_already_notified(self):
         last_login = timezone.now() - relativedelta(
             months=user_deletion_config.MONTH_NOTIFICATION,
         )
-        UserFactory.create(last_login=last_login, notified=True)
+        user = UserFactory.create(last_login=last_login, notified=True)
         users = User.objects.users_to_notify()
 
-        self.assertFalse(users)
+        self.assertNotIn(user, users)
 
     def test_users_to_delete(self):
         last_login = timezone.now() - relativedelta(
@@ -45,16 +45,16 @@ class TestUserDeletionManager(TestCase):
         self.assertCountEqual(users, [user])
 
     def test_users_not_to_delete(self):
-        UserFactory.create(last_login=timezone.now())
+        user = UserFactory.create(last_login=timezone.now(), notified=False)
         users = User.objects.users_to_delete()
 
-        self.assertFalse(users)
+        self.assertNotIn(user, users)
 
     def test_users_to_delete_not_notified(self):
         last_login = timezone.now() - relativedelta(
             months=user_deletion_config.MONTH_DELETION,
         )
-        UserFactory.create(last_login=last_login, notified=False)
+        user = UserFactory.create(last_login=last_login, notified=False)
         users = User.objects.users_to_delete()
 
-        self.assertFalse(users)
+        self.assertNotIn(user, users)
