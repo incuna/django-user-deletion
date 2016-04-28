@@ -1,10 +1,10 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from user_deletion.managers import UserManagerMixin
+from user_deletion.managers import UserDeletionManagerMixin
 
 
-class UserManager(UserManagerMixin, models.Manager):
+class UserManager(UserDeletionManagerMixin, models.Manager):
     pass
 
 

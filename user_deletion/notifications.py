@@ -19,13 +19,13 @@ def send_emails(notification):
     send_mass_mail(messages)
 
 
-class DeletionNotification(Notification):
+class AccountInactiveNotification(Notification):
     handlers = (send_emails,)
     template_name = 'user_deletion/email_notification.txt'
     subject = _('Re-activate your account')
 
 
-class DeletedNotification(Notification):
+class AccountDeletedNotification(Notification):
     handlers = (send_emails,)
     template_name = 'user_deletion/email_deletion.txt'
     subject = _('Your account has been deleted')

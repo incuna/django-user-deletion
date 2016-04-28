@@ -6,7 +6,7 @@ from django.utils import timezone
 user_deletion_config = apps.get_app_config('user_deletion')
 
 
-class UserManagerMixin:
+class UserDeletionManagerMixin:
     def users_to_notify(self):
         """Finds all users who have been inactive and not yet notified."""
         last_login = timezone.now() - relativedelta(
