@@ -11,7 +11,7 @@ setup(
     version=version,
     license='BSD',
     description='Management commands to notify and delete inactive django users',
-    classifiers=(
+    classifiers=[
         'Development Status :: 1 - Planning',
         'Framework :: Django',
         'Intended Audience :: Developers',
@@ -19,7 +19,7 @@ setup(
         'Natural Language :: English',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
-    ),
+    ],
     author='Incuna Ltd',
     author_email='admin@incuna.com',
     url='https://github.com/incuna/django-user-deletion',
