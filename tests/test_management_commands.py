@@ -17,6 +17,7 @@ MONTH = 1
 class TestUserNotifyManagementCommand(TestCase):
     def test_no_users(self):
         call_command('notify_users')
+
         self.assertFalse(len(mail.outbox))
 
     def test_inactive_users(self):
@@ -49,7 +50,8 @@ class TestUserNotifyManagementCommand(TestCase):
         UserFactory.create(last_login=year_ago, notified=True)
 
         call_command('notify_users')
-        self.assertFalse(len(mail.outbox))
+
+        self.assertEqual(len(mail.outbox), 0)
 
 
 @patch('user_deletion.apps.UserDeletionConfig.MONTH_DELETION', new=MONTH)
@@ -65,7 +67,6 @@ class TestDeleteUsersManagementCommand(TestCase):
         call_command('delete_users')
 
         self.assertEqual(len(mail.outbox), 1)
-
         with self.assertRaises(User.DoesNotExist):
             user.refresh_from_db()
 
@@ -80,6 +81,7 @@ class TestDeleteUsersManagementCommand(TestCase):
     def test_email(self):
         year_ago = timezone.now() - relativedelta(months=MONTH)
         UserFactory.create(last_login=year_ago, notified=True)
+
         call_command('delete_users')
 
         email = mail.outbox[0]
