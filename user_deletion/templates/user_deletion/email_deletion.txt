@@ -1,0 +1,10 @@
+{% load i18n %}
+{% block content %}{% blocktrans with site_domain=site.domain %}
+Your account at {{ site_domain }} has been now deleted.
+
+You were informed about the fact that your account was inactive for over 12 months and
+it was due to be deleted if no action will be taken.
+
+We have now deleted your profile with its all data associated, as no required
+action was taken.
+{% endblocktrans %}{% endblock content %}

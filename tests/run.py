@@ -16,8 +16,19 @@ settings.configure(
             default='sqlite://{}/user_deletion.db'.format(BASEDIR),
         ),
     },
-    INSTALLED_APPS=('user_deletion',),
+    INSTALLED_APPS=(
+        'tests',
+        'user_deletion',
+
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sites',
+    ),
     MIDDLEWARE_CLASSES=(),
+
+    AUTH_USER_MODEL='tests.User',
+    SITE_ID=1,
+    DEFAULT_FROM_EMAIL='from@example.com',
 )
 
 

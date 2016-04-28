@@ -1,0 +1,7 @@
+{% load i18n %}
+{% block content %}{% blocktrans with site_domain=site.domaine %}
+We have noticed that your account at {{ site_domain }} has been inactive for over 12 months now.
+
+Please log in to your account in order to keep it alive, otherwise it will be
+deleted within the next four weeks.
+{% endblocktrans %}{% endblock content %}
