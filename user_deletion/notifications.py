@@ -5,17 +5,20 @@ from django.utils.translation import ugettext_lazy as _
 from pigeon.notification import Notification
 
 
-def send_emails(notification):
-    messages = []
+def build_emails(notification):
     context = {'site': notification.site}
     for user in notification.users:
         message = render_to_string(notification.template_name, context)
-        messages.append([
+        yield [
             notification.subject,
             message,
             settings.DEFAULT_FROM_EMAIL,
             [user.email],
-        ])
+        ]
+
+
+def send_emails(notification):
+    messages = build_emails(notification)
     send_mass_mail(messages)
 
 
