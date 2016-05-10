@@ -15,3 +15,4 @@ class Command(BaseCommand):
         users = User.objects.users_to_notify()
         site = Site.objects.get_current()
         AccountInactiveNotification(user=None, site=site, users=users).notify()
+        users.update(notified=True)
