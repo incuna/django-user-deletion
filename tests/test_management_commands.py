@@ -22,11 +22,13 @@ class TestUserNotifyManagementCommand(TestCase):
 
     def test_inactive_users(self):
         month_ago = timezone.now() - relativedelta(months=MONTH)
-        UserFactory.create(last_login=month_ago)
+        user = UserFactory.create(last_login=month_ago, notified=False)
 
         call_command('notify_users')
 
         self.assertEqual(len(mail.outbox), 1)
+        user.refresh_from_db()
+        self.assertTrue(user.notified)
 
     def test_notified_users(self):
         year_ago = timezone.now() - relativedelta(months=MONTH)
