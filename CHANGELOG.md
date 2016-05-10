@@ -1,6 +1,6 @@
 # Changelog for incuna-epatient-api
 
-## 0.1.2 (Upcoming)
+## 0.1.2
 
 * Fix app config loaded too early.
 
