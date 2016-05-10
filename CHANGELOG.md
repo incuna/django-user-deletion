@@ -1,5 +1,9 @@
 # Changelog for incuna-epatient-api
 
+## 0.1.4
+
+* Set `notified=True` when users have been notified.
+
 ## 0.1.3
 
 * Include templates.
