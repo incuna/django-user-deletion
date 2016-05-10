@@ -1,5 +1,9 @@
 # Changelog for incuna-epatient-api
 
+## 0.1.2 (Upcoming)
+
+* Fix app config loaded too early.
+
 ## 0.1.1
 
 * Add missing init file which prevents to have the management commands.
