@@ -1,5 +1,9 @@
 # Changelog for incuna-epatient-api
 
+## 0.1.5 (upcoming)
+
+* Fix typo for domain name in email notification.
+
 ## 0.1.4
 
 * Set `notified=True` when users have been notified.
