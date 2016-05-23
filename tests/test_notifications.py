@@ -31,3 +31,4 @@ class TestAccountInactiveNotification(TestCase):
         email = mail.outbox[0]
         self.assertEqual(email.subject, 'Re-activate your account')
         self.assertIn('We have noticed', email.body)
+        self.assertIn('example.com', email.body)
