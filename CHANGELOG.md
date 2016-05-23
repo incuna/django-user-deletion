@@ -1,6 +1,6 @@
 # Changelog for incuna-epatient-api
 
-## 0.1.5 (upcoming)
+## 0.1.5
 
 * Fix typo for domain name in email notification.
 
