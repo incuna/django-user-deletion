@@ -1,5 +1,9 @@
 # Changelog for incuna-epatient-api
 
+## 0.2.0 (Upcoming)
+
+* Make notification classes available in the app config.
+
 ## 0.1.5
 
 * Fix typo for domain name in email notification.
