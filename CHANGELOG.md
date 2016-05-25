@@ -1,6 +1,6 @@
 # Changelog for incuna-epatient-api
 
-## 0.2.0 (Upcoming)
+## 0.2.0
 
 * Make notification classes available in the app config.
 
