@@ -1,4 +1,4 @@
-# Changelog for incuna-epatient-api
+# Changelog for django-user-deletion
 
 ## 0.2.0
 
