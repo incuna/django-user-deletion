@@ -2,7 +2,7 @@
 colour-runner==0.0.4
 coverage==4.0.3
 dj-database-url==0.4.1
-django==1.8.12
+django==2.2.24
 factory-boy==2.6.1
 flake8==2.5.4
 flake8-import-order==0.7
